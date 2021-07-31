@@ -10,8 +10,9 @@
 var NodeHelper = require('node_helper')
 var request = require('request')
 
-var byCountryUrl = 'https://coronavirus-monitor.p.rapidapi.com/coronavirus/cases_by_country.php'
-var worldStatsUrl = 'https://coronavirus-monitor.p.rapidapi.com/coronavirus/worldstat.php'
+var totalNumberUrl = 'https://covid-19-coronavirus-statistics.p.rapidapi.com/v1/total'
+
+var host = 'covid-19-coronavirus-statistics.p.rapidapi.com'
 
 module.exports = NodeHelper.create({
   start: function () {
@@ -21,9 +22,10 @@ module.exports = NodeHelper.create({
     var self = this
     var options = {
       method: 'GET',
-      url: worldStatsUrl,
+      url: totalNumberUrl,
+      params: {country: 'Global'},
       headers: {
-        'x-rapidapi-host': 'coronavirus-monitor.p.rapidapi.com',
+        'x-rapidapi-host': host,
         'x-rapidapi-key': key
       }
     }
@@ -34,13 +36,14 @@ module.exports = NodeHelper.create({
       }
     })
   },
-  getStatsByCoutry: function(key) {
+  getStatsByCoutry: function(key, countryCode) {
     var self = this
     var options = {
       method: 'GET',
-      url: byCountryUrl,
+      url: totalNumberUrl,
+      params: {country: countryCode},
       headers: {
-        'x-rapidapi-host': 'coronavirus-monitor.p.rapidapi.com',
+        'x-rapidapi-host': host,
         'x-rapidapi-key': key
       }
     }
